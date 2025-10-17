@@ -1,5 +1,6 @@
 package com.br.pedeplux.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,7 +27,8 @@ public class Category implements Serializable {
     @Column()
     private String name;
 
-    @Transient
+    @ManyToMany(mappedBy = "categories")
+    @JsonIgnore
     private Set<Product> products = new HashSet<>();
 
     public Category(Long categoryId, String name) {

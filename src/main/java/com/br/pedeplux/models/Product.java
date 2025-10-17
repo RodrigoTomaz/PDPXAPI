@@ -34,12 +34,14 @@ public class Product implements Serializable {
     @Column(name = "procuct_imgUrl")
     private String imgUrl;
 
-    @Transient
-    private Set<Category> categories = new HashSet<>();
+    @ManyToMany
+    @JoinTable(
+            name = "tb_product_category",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
 
-    private Set<Category> getCategories(){
-        return this.categories;
-    }
+    private Set<Category> categories = new HashSet<>();
 
     public Product(Long productId, String name, String description, Double price, String imgUrl) {
         this.productId = productId;
