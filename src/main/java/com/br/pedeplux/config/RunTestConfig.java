@@ -1,8 +1,10 @@
 package com.br.pedeplux.config;
 
 import com.br.pedeplux.enums.OrderStatus;
+import com.br.pedeplux.models.Category;
 import com.br.pedeplux.models.Order;
 import com.br.pedeplux.models.User;
+import com.br.pedeplux.repositories.CategoryRepository;
 import com.br.pedeplux.repositories.OrderRepository;
 import com.br.pedeplux.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ public class RunTestConfig implements CommandLineRunner {
 
     @Autowired
     private OrderRepository orderRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -44,5 +49,16 @@ public class RunTestConfig implements CommandLineRunner {
         Order order3 = new Order(null, Instant.now(), user1, OrderStatus.DELIVERED);
 
         orderRepository.saveAll(Arrays.asList(order1, order2, order3));
+
+        Category category1 = new Category(null, "Eletrônicos");
+        Category category2 = new Category(null, "Moda");
+        Category category3 = new Category(null, "Casa e Móveis");
+        Category category4 = new Category(null, "Esportes e Lazer");
+        Category category5 = new Category(null, "Beleza e Cuidados Pessoais");
+        Category category6 = new Category(null, "Livros");
+        Category category7 = new Category(null, "Brinquedos");
+        Category category8 = new Category(null, "Alimentos e Bebidas");
+
+        categoryRepository.saveAll(Arrays.asList(category1, category2, category3, category4, category5, category6, category7, category8));
     }
 }
