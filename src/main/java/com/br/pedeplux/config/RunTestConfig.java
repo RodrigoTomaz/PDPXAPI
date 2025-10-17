@@ -1,14 +1,8 @@
 package com.br.pedeplux.config;
 
 import com.br.pedeplux.enums.OrderStatus;
-import com.br.pedeplux.models.Category;
-import com.br.pedeplux.models.Order;
-import com.br.pedeplux.models.Product;
-import com.br.pedeplux.models.User;
-import com.br.pedeplux.repositories.CategoryRepository;
-import com.br.pedeplux.repositories.OrderRepository;
-import com.br.pedeplux.repositories.ProductRepository;
-import com.br.pedeplux.repositories.UserRepository;
+import com.br.pedeplux.models.*;
+import com.br.pedeplux.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -32,6 +26,9 @@ public class RunTestConfig implements CommandLineRunner {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private OrderItemRepository orderItemRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -81,5 +78,11 @@ public class RunTestConfig implements CommandLineRunner {
 
         productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
 
+        OrderItem oi1 = new OrderItem(order1, p1, 2, p1.getPrice());
+        OrderItem oi2 = new OrderItem(order1, p3, 1, p3.getPrice());
+        OrderItem oi3 = new OrderItem(order2, p3, 2, p3.getPrice());
+        OrderItem oi4 = new OrderItem(order3, p5, 2, p5.getPrice());
+
+        orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
     }
 }

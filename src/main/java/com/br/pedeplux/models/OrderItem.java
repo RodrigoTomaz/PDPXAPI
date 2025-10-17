@@ -1,24 +1,20 @@
 package com.br.pedeplux.models;
 
 import com.br.pedeplux.models.pk.OrderItemPk;
-import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
 
 @Entity
 @Table(name = "tb_orderitem")
-@Getter
-@Setter
 @NoArgsConstructor
 @EqualsAndHashCode(of = "orderItemId")
 public class OrderItem implements Serializable {
 
     @EmbeddedId
-    private OrderItemPk orderItemId;
+    private OrderItemPk orderItemId = new OrderItemPk();
 
     @Column(name = "orderitem_quantity")
     private Integer quantity;
@@ -33,6 +29,7 @@ public class OrderItem implements Serializable {
         this.price = price;
     }
 
+    @JsonIgnore
     public Order getOrder(){
         return orderItemId.getOrder();
     }
@@ -47,5 +44,21 @@ public class OrderItem implements Serializable {
 
     public void setProduct(Product product){
         orderItemId.setProduct(product);
+    }
+    
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 }

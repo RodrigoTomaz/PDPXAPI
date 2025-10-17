@@ -8,6 +8,8 @@ import lombok.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_order")
@@ -38,5 +40,13 @@ public class Order implements Serializable {
 
     private OrderStatus orderStatus;
 
+    @OneToMany(mappedBy = "orderItemId.order")
+    private Set<OrderItem> orderItems = new HashSet<>();
 
+    public Order(Long orderId, Instant moment, User user, OrderStatus orderStatus) {
+        this.orderId = orderId;
+        this.moment = moment;
+        this.user = user;
+        this.orderStatus = orderStatus;
+    }
 }
