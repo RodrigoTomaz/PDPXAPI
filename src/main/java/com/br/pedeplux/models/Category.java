@@ -5,6 +5,8 @@ import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_category")
@@ -23,4 +25,12 @@ public class Category implements Serializable {
 
     @Column()
     private String name;
+
+    @Transient
+    private Set<Product> products = new HashSet<>();
+
+    public Category(Long categoryId, String name) {
+        this.categoryId = categoryId;
+        this.name = name;
+    }
 }
