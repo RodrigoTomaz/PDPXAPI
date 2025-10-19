@@ -25,7 +25,7 @@ public class UserService {
         return user.orElseThrow(() -> new NoSuchElementException("Usuario não encontrado"));
     }
 
-    public User createUser(User user){
+    public User insertUser(User user){
         return userRepository.save(user);
     }
 }

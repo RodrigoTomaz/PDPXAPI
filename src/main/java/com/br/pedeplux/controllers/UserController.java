@@ -27,10 +27,13 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user){
-        user = userService.createUser(user);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(user.getUserId()).toUri();
+    public ResponseEntity<User> insertUser(@RequestBody User user){
+        user = userService.insertUser(user);
+        URI uri = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{userId}")
+                .buildAndExpand(user.getUserId())
+                .toUri();
         return ResponseEntity.created(uri).body(user);
     }
 }
