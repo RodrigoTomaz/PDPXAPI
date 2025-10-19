@@ -1,5 +1,6 @@
 package com.br.pedeplux.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -40,8 +41,10 @@ public class Product implements Serializable {
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
-
     private Set<Category> categories = new HashSet<>();
+
+    @OneToMany(mappedBy = "orderItemId.product")
+    private Set<OrderItem> items = new HashSet<>();
 
     public Product(Long productId, String name, String description, Double price, String imgUrl) {
         this.productId = productId;
@@ -49,5 +52,14 @@ public class Product implements Serializable {
         this.description = description;
         this.imgUrl = imgUrl;
         this.price = price;
+    }
+
+    @JsonIgnore
+    public Set<Order> getOrders(){
+        Set<Order> set = new HashSet<>();
+        for(OrderItem x: items){
+            set.add(x.getOrder());
+        }
+        return set;
     }
 }
