@@ -84,5 +84,10 @@ public class RunTestConfig implements CommandLineRunner {
         OrderItem oi4 = new OrderItem(order3, p5, 2, p5.getPrice());
 
         orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
+
+        Payment payment1 = new Payment(null, Instant.now(), order1);
+        order1.setPayment(payment1);
+
+        orderRepository.save(order1);
     }
 }
