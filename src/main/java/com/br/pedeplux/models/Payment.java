@@ -1,6 +1,8 @@
 package com.br.pedeplux.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -8,6 +10,9 @@ import java.time.Instant;
 
 @Entity
 @Table(name = "tb_payment")
+@Getter
+@Setter
+@EqualsAndHashCode(of = "paymentId")
 public class Payment implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
@@ -22,6 +27,7 @@ public class Payment implements Serializable {
 
     @OneToOne
     @MapsId
+    @JsonIgnore
     private Order order;
 
     public Payment(){}

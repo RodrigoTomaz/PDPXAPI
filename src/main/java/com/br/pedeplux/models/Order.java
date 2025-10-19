@@ -52,4 +52,12 @@ public class Order implements Serializable {
         this.user = user;
         this.orderStatus = orderStatus;
     }
+
+    public Double getTotal(){
+        double sum = 0;
+        for (OrderItem order: orderItems){
+            sum += order.getSubTotal();
+        }
+        return sum;
+    }
 }
